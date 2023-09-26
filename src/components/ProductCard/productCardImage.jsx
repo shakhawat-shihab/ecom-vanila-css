@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
-import ProductModal from '../productModal/productModal';
+import React, { useState } from "react";
+import ProductModal from "../productModal/productModal";
 
-const ProductCardImage = ({props}) => {
-    const [showModal,setShowModal]=useState(false);
-    const{title,thumbnail, price }=props;
-    console.log(showModal);
-    const turnOffModalVisibility=()=>{
-        console.log("shihab")
-        setShowModal(false);
-    }
-    return (
-        <div className='smart-phone-card'  onClick={()=>{setShowModal(true)}}>
-            <img src={thumbnail} alt="product image" width="100%" height="300px" />
-            <div className='info'>
-                <p>{title}</p>
-                <p>{price}$</p>
-            </div>
-            
-            {/* <div className={`${showModal==true ? 'visible' :'not-visible' }`}>
-                <ProductModal  turnOffModalVisibility={turnOffModalVisibility}/>
-            </div> */}
-           
-            {/* {
-                showModal
-                ?
-                <ProductModal   turnOffModalVisibility={turnOffModalVisibility} />
-                :
-                <></>
-            } */}
-           
-        </div>
-    );
+const ProductCardImage = ({ props }) => {
+  const { title, thumbnail, price, id } = props;
+  const [showModal, setShowModal] = useState(false);
+
+  let turnOffModalVisibility = () => {
+    console.log("shihab");
+    setShowModal(false);
+  };
+  console.log("ssss ", showModal);
+
+  return (
+    <div className="smart-phone-card">
+      <img
+        src={thumbnail}
+        alt="product image"
+        width="100%"
+        height="300px"
+        onClick={() => {
+          setShowModal(true);
+          console.log("hello");
+        }}
+      />
+      <div className="info">
+        <p>{title}</p>
+        <p>{price}$</p>
+      </div>
+
+      {showModal && (
+        <ProductModal
+          turnOffModalVisibility={turnOffModalVisibility}
+          product={props}
+        />
+      )}
+    </div>
+  );
 };
 
 export default ProductCardImage;

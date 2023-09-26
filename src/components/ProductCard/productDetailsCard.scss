@@ -1,7 +1,50 @@
+.product-card-info{
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    // position: relative;
+    display: flex;
+    flex-direction: column;
+    .brand-category{
+        display: flex;
+        justify-content: space-between;
+    }
+    .price{
+        display: flex;
+        
+        h5{
+            color: tomato;
+            padding-left: 10px;
+        }
+    }
+    h3{
+        color: rgb(0, 106, 255);
+        text-transform: capitalize;
+        text-align: center;
+        margin: 0px;
+    }
+}
+
+
+.cart-button{
+    background-color: #0B5ED7;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
 .order-button{
     background-color: tomato;
     border: none;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-radius: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
 }
 
