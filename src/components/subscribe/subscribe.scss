@@ -1,0 +1,35 @@
+.subscribe{
+    margin: 60px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #212529;
+    color: white;
+    padding: 30px 20px ;
+    
+}
+
+.left-section{
+    div{
+       padding-left: 70px;
+    }
+}
+.right-section{
+    div{
+       padding-right: 70px;
+    }
+    button{
+        background-color: brown;
+        border-radius: 5px;
+        border: none;
+        padding: 12px 20px;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.email{
+    padding: 10px 15px;
+
+}
+
