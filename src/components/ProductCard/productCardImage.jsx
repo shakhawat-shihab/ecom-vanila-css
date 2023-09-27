@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import ProductModal from "../productModal/productModal";
+import "./productCardImage.scss";
 
 const ProductCardImage = ({ props }) => {
   const { title, thumbnail, price, id } = props;
   const [showModal, setShowModal] = useState(false);
 
   let turnOffModalVisibility = () => {
-    console.log("shihab");
+    // console.log("shihab");
     setShowModal(false);
   };
-  console.log("ssss ", showModal);
+  // console.log("ssss ", showModal);
 
   return (
-    <div className="smart-phone-card">
+    <div className="smart-phone-card ">
       <img
         src={thumbnail}
         alt="product image"

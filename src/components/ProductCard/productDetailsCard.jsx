@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ProductModal from "../productModal/productModal";
 import "./productDetailsCard.scss";
 import Rating from "react-rating";
+// import myDb from "../../localStorgae/db";
 
-const ProductDetailsCard = ({ props }) => {
+const ProductDetailsCard = ({ props, reloadCart }) => {
   const {
     title,
     thumbnail,
@@ -13,16 +14,29 @@ const ProductDetailsCard = ({ props }) => {
     discountPercentage,
     brand,
     category,
+    id,
   } = props;
+  // console.log(reloadCart);
+
+  const addProductToLocalStorage = (productId, quantity) => {
+    // Check if local storage is supported by the browser
+    if (typeof Storage !== "undefined") {
+      // Get the current shopping cart from local storage (if it exists)
+      const currentCart = JSON.parse(localStorage.getItem("cart")) || {};
+      // Add or update the quantity of the product
+      currentCart[productId] = (currentCart[productId] || 0) + quantity;
+      // Save the updated cart back to local storage
+      localStorage.setItem("cart", JSON.stringify(currentCart));
+      console.log(
+        `Product ${productId} added to cart with quantity ${quantity}.`
+      );
+    } else {
+      console.error("Local storage is not supported in this browser.");
+    }
+  };
 
   return (
-    <div
-      className="product-card"
-      // onClick={(e) => {
-      //   alert("product clicked");
-      //   setShowModal(true);
-      // }}
-    >
+    <div className="product-card">
       <img src={thumbnail} alt="product image" width="100%" height="300px" />
       {/* <div> */}
       <div className="product-card-info">
@@ -52,7 +66,9 @@ const ProductDetailsCard = ({ props }) => {
           <button
             className="cart-button"
             onClick={(e) => {
-              alert("add to cart button clicked");
+              // alert("add to cart button clicked");
+              addProductToLocalStorage(id, 1);
+              reloadCart();
               e.stopPropagation();
             }}
           >

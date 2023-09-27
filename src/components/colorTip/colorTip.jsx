@@ -1,18 +1,20 @@
-import React from 'react';
-import "./colorTip.style.css"
-const ColorTip = ({colors, currentColor, setColorFromColorTip}) => {
-    console.log("colors ",colors);
-    
-    return (
-        <div className='banner-color'>
-            {
-                colors?.map(x=> (<div className= {`color-tip ${currentColor==x && 'active-class' }`} style={{backgroundColor:x}}
-                onClick={()=>setColorFromColorTip(x)}
-                >
-                </div>))
-            }
-            
-            {/* <div className= {`color-tip ${color=="#D3D5D5" ? 'active-class' : ''}`} style={{backgroundColor:"#D3D5D5"}}
+import React from "react";
+import "./colorTip.style.css";
+const ColorTip = ({ colors, currentColor, setColorFromColorTip }) => {
+  // console.log("colors ",colors);
+
+  return (
+    <div className="banner-color">
+      {colors?.map((x) => (
+        <div
+          key={x}
+          className={`color-tip ${currentColor == x && "active-class"}`}
+          style={{ backgroundColor: x }}
+          onClick={() => setColorFromColorTip(x)}
+        ></div>
+      ))}
+
+      {/* <div className= {`color-tip ${color=="#D3D5D5" ? 'active-class' : ''}`} style={{backgroundColor:"#D3D5D5"}}
                 onClick={()=>setColor("#D3D5D5")}
                 >
                 </div>
@@ -28,8 +30,8 @@ const ColorTip = ({colors, currentColor, setColorFromColorTip}) => {
                  onClick={()=>setColor("#74b9ff")}
                 >
                 </div> */}
-        </div>
-    );
+    </div>
+  );
 };
 
 export default ColorTip;

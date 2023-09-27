@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -10,21 +10,28 @@ import Products from "./components/product-section/products/products";
 import Footer from "./components/footet/footer";
 import Subscribe from "./components/subscribe/subscribe";
 
+export const MyContext = createContext();
+
 function App() {
-  // const [showModal, setShowModal] = useState(false);
-  // let turnOffModalVisibility = () => {
-  //   console.log("shihab");
-  //   setShowModal(false);
-  // };
+  const [user, setUser] = useState({});
+  const logInUser = () => {
+    console.log("login clicked");
+    setUser({ email: "shihabchtg@gmail.com", name: "shakhawat" });
+  };
+  const logOutUser = () => {
+    console.log("logout clicked");
+    setUser({});
+  };
+
   return (
     <>
-      {/* {showModal && (
-        <ProductModal turnOffModalVisibility={turnOffModalVisibility} id={id} />
-      )} */}
-      <Navbar />
-      <Banner />
-      <SmartPhone />
-      <Products />
+      <MyContext.Provider value={{ user, logInUser, logOutUser }}>
+        <Navbar />
+        <Banner />
+        <SmartPhone />
+        <Products />
+      </MyContext.Provider>
+
       <hr />
       <Subscribe />
       <Footer />

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./smartPhone.style.scss";
 import ProductCardImage from "../../ProductCard/productCardImage";
 
 const SmartPhone = () => {
   const [smartPhone, setSmartPhone] = useState([]);
+
   useEffect(() => {
     fetch("https://dummyjson.com/products/category/smartphones")
       .then((res) => res.json())
