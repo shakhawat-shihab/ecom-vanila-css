@@ -9,6 +9,9 @@ import ProductDetailsCard from "./components/ProductCard/productDetailsCard";
 import Products from "./components/product-section/products/products";
 import Footer from "./components/footet/footer";
 import Subscribe from "./components/subscribe/subscribe";
+import InsertProduct from "./components/insertProduct/insertProduct";
+import DeleteProduct from "./components/deleteProduct/deleteProduct";
+import UpdateProduct from "./components/updateProduct/updateProduct";
 
 export const MyContext = createContext();
 
@@ -27,11 +30,15 @@ function App() {
     <>
       <MyContext.Provider value={{ user, logInUser, logOutUser }}>
         <Navbar />
-        <Banner />
-        <SmartPhone />
-        <Products />
       </MyContext.Provider>
-
+      <Banner />
+      <SmartPhone />
+      <Products />
+      <InsertProduct />
+      <hr />
+      <UpdateProduct />
+      <hr />
+      <DeleteProduct />
       <hr />
       <Subscribe />
       <Footer />

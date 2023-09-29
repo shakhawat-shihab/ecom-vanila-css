@@ -12,7 +12,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-optinos">
           <li>
-            <a class="active" href="#">
+            <a className="active" href="#">
               Home
             </a>
           </li>

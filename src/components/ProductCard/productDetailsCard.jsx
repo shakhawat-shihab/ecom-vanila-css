@@ -44,7 +44,7 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
         <div className="brand-category">
           <p>Brand: {brand}</p>
           <p>
-            <i class="fa-solid fa-tag"></i>
+            <i className="fa-solid fa-tag"></i>
             <span style={{ marginLeft: "8px" }}>{category}</span>
           </p>
         </div>

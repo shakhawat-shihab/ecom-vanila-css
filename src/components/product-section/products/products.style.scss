@@ -26,6 +26,31 @@
     padding-left: 15px;
 }
 
+.cart-card-container{
+    height: 1500px;
+    overflow-y: scroll;
+    /* Enable vertical scrollbar */
+    // border: 1px solid #ccc;
+    /* Add a border for visualization */
+    padding-right: 15px;
+}
+
+.scroll-container {
+    width: 300px;
+    /* Set a fixed width for the container */
+    height: 200px;
+    /* Set a fixed height for the container */
+    overflow-y: scroll;
+    /* Enable vertical scrollbar */
+    // border: 1px solid #ccc;
+    /* Add a border for visualization */
+}
+
+/* Optional: Style the content within the scrollable container */
+.scroll-content {
+    padding: 10px;
+}
+
 .product-section{
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -34,6 +59,7 @@
 .product-card {
     border-radius: 8px;
     border: 1px solid gray;
+    max-height: 600px;
 
     img {
         border-top-right-radius: 8px;
