@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useProductHook from "../../hooks/useProductHook";
 import "./updateProduct.style.css";
 import Spinner from "../spinner/spinner";
 const UpdateProduct = () => {
-  const { getProductById, product, isLoadingProduct } = useProductHook();
+  const {
+    getProductById,
+    product,
+    setProduct,
+    isLoadingProduct,
+    updateProduct,
+  } = useProductHook();
   const [productId, setProductId] = useState("");
 
+  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
@@ -19,23 +26,38 @@ const UpdateProduct = () => {
     if (productId) {
       //   console.log(productId);
       getProductById(productId);
-      if (product) {
-        // console.log("product ", product);
-        setFoundProduct(true);
-        setTitle(product?.title);
-        setPrice(product?.price);
-        setStock(product?.stock);
-        setRating(product?.rating);
-        setDescription(product?.description);
-      }
+      //   if (product) {
+      //     console.log("product ", product);
+      //     setFoundProduct(true);
+      //     setId(product?._id);
+      //     setTitle(product?.title);
+      //     setPrice(product?.price);
+      //     setStock(product?.stock);
+      //     setRating(product?.rating);
+      //     setDescription(product?.description);
+      //   }
     } else alert("Product Id is not provided");
   };
 
-  const handleUpdateProduct = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    setId(product?._id);
+    setTitle(product?.title);
+    setPrice(product?.price);
+    setStock(product?.stock);
+    setRating(product?.rating);
+    setDescription(product?.description);
+  }, [product]);
 
-  //   console.log(foundProduct);
+  //   console.log(product);
+
+  const handleUpdateProduct = (e) => {
+    console.log("Update Clicked");
+    e.preventDefault();
+    const product = { id, title, price, stock, rating, description };
+    console.log("product ", product);
+    updateProduct(product);
+    setProduct({});
+  };
 
   return (
     <div className="update-product-form">
@@ -112,7 +134,7 @@ const UpdateProduct = () => {
                 onKeyUp={(e) => setDescription(e.target.value)}
                 defaultValue={product?.description}
               ></textarea>
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Update" />
             </div>
           </form>
         )
