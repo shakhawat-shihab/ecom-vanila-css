@@ -30,23 +30,5 @@
     grid-gap:20px 30px;
 }
 
-.smart-phone-card{
-    border-radius: 8px;
-    border:1px solid gray; 
-    img{
-        border-top-right-radius: 8px;
-        border-top-left-radius: 8px;
-    }
-    .info{
-        padding: 0px 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-    p{
-        font-size: 18px;
-        font-family: 'Lato', sans-serif;
-    }
-    .info p:nth-child(2){
-        color: rgb(0, 208, 255);
-    }
-}
+
+

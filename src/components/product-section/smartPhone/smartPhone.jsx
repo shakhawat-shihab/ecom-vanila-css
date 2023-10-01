@@ -1,26 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./smartPhone.style.scss";
 import ProductCardImage from "../../ProductCard/productCardImage";
+import useProductHook from "../../../hooks/useProductHook";
+import Spinner from "../../spinner/spinner";
 
 const SmartPhone = () => {
-  const [smartPhone, setSmartPhone] = useState([]);
-
+  const { phone, isLoadingProduct, getSmartPhone } = useProductHook();
   useEffect(() => {
-    fetch("https://dummyjson.com/products/category/smartphones")
-      .then((res) => res.json())
-      .then((data) => setSmartPhone(data?.products));
+    getSmartPhone();
   }, []);
+  console.log(phone);
+
   return (
     <div className="smart-phone-container">
       <div className="smart-phone-title">
         <h2>Mobile Products</h2>
         <h5>Go to Shop</h5>
       </div>
-
-      <div className="smart-phone-card-container">
-        {smartPhone?.map((x) => (
-          <ProductCardImage key={x?.id} props={x} />
-        ))}
+      <div>
+        {isLoadingProduct ? (
+          <Spinner />
+        ) : (
+          <div className="smart-phone-card-container">
+            {phone?.map((x) => (
+              <ProductCardImage key={x?.id} props={x} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

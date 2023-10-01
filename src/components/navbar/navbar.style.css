@@ -1,5 +1,8 @@
 nav{
-   /* position: relative; */
+    position: fixed;
+    width: 100%;
+    left: 0px;
+  top: 0px;
 }
 
 .nav-container {
@@ -22,6 +25,7 @@ ul {
     overflow: hidden;
     background-color: #333;
     display: flex;
+    justify-content: space-between;
 }
 
 nav ul div{
@@ -29,7 +33,7 @@ nav ul div{
 }
 
 .navbar-optinos{
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 
 li {

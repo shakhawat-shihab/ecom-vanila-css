@@ -15,6 +15,7 @@ const ProductCardImage = ({ props }) => {
   return (
     <div className="smart-phone-card ">
       <img
+        className="smart-phone-card-img "
         src={thumbnail}
         alt="product image"
         width="100%"

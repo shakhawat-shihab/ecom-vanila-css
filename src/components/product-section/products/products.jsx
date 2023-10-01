@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./products.style.scss";
 import ProductDetailsCard from "../../ProductCard/productDetailsCard";
-import ProductCardImage from "../../ProductCard/productCardImage";
 import ProductCartCard from "../../ProductCard/productCartCard";
-import { MyContext } from "../../../App";
 import useProductHook from "../../../hooks/useProductHook";
 import useCartHook from "../../../hooks/useCartHook";
 import Spinner from "../../spinner/spinner";
@@ -45,9 +43,8 @@ const Products = () => {
             ))}
           </div>
         )}
-        <div className=" cart-container ">
+        {/* <div className=" cart-container ">
           <h2 style={{ textAlign: "center", color: "#F0932B" }}>
-            {/* {`${user?.name ? user?.name + "'s" : "My "} `} */}
             Cart
           </h2>
           {isLoadingCart ? (
@@ -80,7 +77,7 @@ const Products = () => {
               )}
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

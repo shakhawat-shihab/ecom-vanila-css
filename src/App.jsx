@@ -31,6 +31,7 @@ function App() {
       <MyContext.Provider value={{ user, logInUser, logOutUser }}>
         <Navbar />
       </MyContext.Provider>
+
       <Banner />
       <SmartPhone />
       <Products />

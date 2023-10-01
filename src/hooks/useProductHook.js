@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const useProductHook = () => {
   const [products, setProducts] = useState([]);
+  const [phone, setPhone] = useState([]);
   const [product, setProduct] = useState({});
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
 
@@ -19,8 +20,27 @@ const useProductHook = () => {
     fetch(`http://localhost:8000/products/all`)
       .then((res) => res.json())
       .then((data) => {
-        //  console.log(data);
+        console.log(data);
         setProducts(data?.data?.products);
+        setIsLoadingProduct(false);
+        // if (data?.success) {
+        //   alert(data?.message);
+        // } else {
+        //   alert(data?.message);
+        // }
+      })
+      .finally(() => {
+        setIsLoadingProduct(false);
+      });
+  };
+
+  const getSmartPhone = () => {
+    setIsLoadingProduct(true);
+    fetch(`http://localhost:8000/products/all?search=phone`)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        setPhone(data?.data?.products);
         setIsLoadingProduct(false);
         // if (data?.success) {
         //   alert(data?.message);
@@ -122,9 +142,11 @@ const useProductHook = () => {
   return {
     products,
     product,
+    phone,
     setProduct,
     isLoadingProduct,
     getAllProducts,
+    getSmartPhone,
     insertProduct,
     deleteProduct,
     getProductById,

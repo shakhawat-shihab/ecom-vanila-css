@@ -16,10 +16,10 @@
 .product-card-container {
     display: grid;
     flex: "1";
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px 30px;
-    padding-right: 15px ;
-    border-right: 1px solid gray;
+    // padding-right: 15px ;
+    // border-right: 1px solid gray;
 }
 
 .cart-container{
@@ -53,7 +53,7 @@
 
 .product-section{
     display: grid;
-    grid-template-columns: 4fr 1fr;
+    // grid-template-columns: 4fr 1fr;
 }
 
 .product-card {
