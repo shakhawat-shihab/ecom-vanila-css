@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useProductHook = () => {
   const [products, setProducts] = useState([]);
@@ -6,14 +6,14 @@ const useProductHook = () => {
   const [product, setProduct] = useState({});
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
 
-  //   useEffect(() => {
-  //     fetch(`http://localhost:8000/products/all`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setProducts(data?.data?.products);
-  //       });
-  //   }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:8000/products/all?sortAsc=price&sortParam=price`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setProducts(data?.data?.products);
+  //     });
+  // }, []);
 
   const getAllProducts = () => {
     setIsLoadingProduct(true);

@@ -24,6 +24,8 @@ const Products = () => {
     getAllProductsFromCart();
   }, [loadCart]);
 
+  console.log(products);
+
   return (
     <div className="product-container">
       <div className="product-title">
