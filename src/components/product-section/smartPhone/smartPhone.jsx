@@ -9,7 +9,7 @@ const SmartPhone = () => {
   useEffect(() => {
     getSmartPhone();
   }, []);
-  console.log(phone);
+  // console.log(phone);
 
   return (
     <div className="smart-phone-container">

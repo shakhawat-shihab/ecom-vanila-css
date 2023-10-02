@@ -3,7 +3,7 @@ import "./navbar.style.css";
 import { MyContext } from "../../App";
 const Navbar = () => {
   const { user, logInUser, logOutUser } = useContext(MyContext);
-  console.log("user ", user);
+  // console.log("user ", user);
   return (
     <nav>
       <ul className="nav-container">

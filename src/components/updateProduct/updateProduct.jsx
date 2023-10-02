@@ -2,16 +2,9 @@ import React, { useEffect, useState } from "react";
 import useProductHook from "../../hooks/useProductHook";
 import "./updateProduct.style.css";
 import Spinner from "../spinner/spinner";
+import { Controller, useForm } from "react-hook-form";
 const UpdateProduct = () => {
-  const {
-    getProductById,
-    product,
-    setProduct,
-    isLoadingProduct,
-    updateProduct,
-  } = useProductHook();
   const [productId, setProductId] = useState("");
-
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -20,22 +13,31 @@ const UpdateProduct = () => {
   const [description, setDescription] = useState("");
   const [foundProduct, setFoundProduct] = useState(0);
 
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      id: "",
+    },
+  });
+
+  const {
+    getProductById,
+    product,
+    setProduct,
+    isLoadingProduct,
+    updateProduct,
+  } = useProductHook();
+
   const getProduct = (e) => {
     setFoundProduct(0);
     e.preventDefault();
     if (productId) {
-      //   console.log(productId);
       getProductById(productId);
-      //   if (product) {
-      //     console.log("product ", product);
-      //     setFoundProduct(true);
-      //     setId(product?._id);
-      //     setTitle(product?.title);
-      //     setPrice(product?.price);
-      //     setStock(product?.stock);
-      //     setRating(product?.rating);
-      //     setDescription(product?.description);
-      //   }
     } else alert("Product Id is not provided");
   };
 
@@ -50,11 +52,25 @@ const UpdateProduct = () => {
 
   //   console.log(product);
 
-  const handleUpdateProduct = (e) => {
-    console.log("Update Clicked");
-    e.preventDefault();
-    const product = { id, title, price, stock, rating, description };
-    console.log("product ", product);
+  // const handleUpdateProduct = (e) => {
+  //   console.log("Update Clicked");
+  //   e.preventDefault();
+  //   const product = { id, title, price, stock, rating, description };
+  //   console.log("product ", product);
+  //   updateProduct(product);
+  //   setProduct({});
+  // };
+
+  const handleOnUpdate = (data) => {
+    const product = {
+      id: id,
+      title: getValues("title"),
+      price: getValues("price"),
+      stock: getValues("stock"),
+      rating: getValues("rating"),
+      description: getValues("description"),
+    };
+    console.log("ppp ", product);
     updateProduct(product);
     setProduct({});
   };
@@ -65,7 +81,6 @@ const UpdateProduct = () => {
         <h2>Update Product</h2>
         <div>
           <label htmlFor="id">Product Id:</label>
-
           <input
             type="text"
             id="id"
@@ -82,58 +97,157 @@ const UpdateProduct = () => {
         <Spinner />
       ) : (
         product?._id && (
-          <form onSubmit={handleUpdateProduct}>
+          <form onSubmit={handleSubmit(handleOnUpdate)}>
             <div>
-              <label htmlFor="title">Title:</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                required
-                onKeyUp={(e) => setTitle(e.target.value)}
-                defaultValue={product?.title}
-              />
+              <div>
+                <label htmlFor="title">Title:</label>
+                <Controller
+                  name="title"
+                  control={control}
+                  rules={{
+                    required: "title is required",
+                    minLength: {
+                      value: 6,
+                      message: "Minimum length must be 6",
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "Minimum length must be 20",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <input
+                      placeholder="Enter title"
+                      {...field}
+                      type="text"
+                      defaultValue={product?.title}
+                      style={{
+                        border: errors?.title ? "1px solid red" : "",
+                      }}
+                    />
+                  )}
+                />
+                <span className="error-message">{errors?.title?.message}</span>
+              </div>
 
-              <label htmlFor="price">Price:</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                required
-                onKeyUp={(e) => setPrice(e.target.value)}
-                defaultValue={product?.price}
-              />
+              <div>
+                <label htmlFor="price">Price:</label>
+                <Controller
+                  name="price"
+                  control={control}
+                  rules={{
+                    required: "price is required",
+                    min: {
+                      value: 1,
+                      message: "Minimum value is 1",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <input
+                      placeholder="Enter price"
+                      {...field}
+                      type="number"
+                      defaultValue={product?.price}
+                      style={{
+                        border: errors?.price ? "1px solid red" : "",
+                      }}
+                    />
+                  )}
+                />
+                <span className="error-message">{errors?.price?.message}</span>
+              </div>
 
-              <label htmlFor="stock">Stock:</label>
-              <input
-                type="number"
-                id="stock"
-                name="stock"
-                required
-                onKeyUp={(e) => setStock(e.target.value)}
-                defaultValue={product?.stock}
-              />
+              <div>
+                <label htmlFor="stock">Stock:</label>
+                <Controller
+                  name="stock"
+                  control={control}
+                  rules={{
+                    required: "stock is required",
+                    min: {
+                      value: 1,
+                      message: "Minimum value is 1",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <input
+                      placeholder="Enter stock"
+                      {...field}
+                      type="number"
+                      defaultValue={product?.stock}
+                      style={{
+                        border: errors?.price ? "1px solid red" : "",
+                      }}
+                    />
+                  )}
+                />
+                <span className="error-message">{errors?.stock?.message}</span>
+              </div>
 
-              <label htmlFor="rating">Rating:</label>
-              <input
-                type="number"
-                id="rating"
-                name="rating"
-                min="0"
-                max="5"
-                step="0.1"
-                required
-                onKeyUp={(e) => setRating(e.target.value)}
-                defaultValue={product?.rating}
-              />
-              <label htmlFor="description">Description:</label>
-              <textarea
-                id="description"
-                name="description"
-                required
-                onKeyUp={(e) => setDescription(e.target.value)}
-                defaultValue={product?.description}
-              ></textarea>
+              <div>
+                <label htmlFor="rating">Rating:</label>
+                <Controller
+                  name="rating"
+                  control={control}
+                  rules={{
+                    required: "rating is required",
+                    min: {
+                      value: 0,
+                      message: "Minimum value is 0",
+                    },
+                    max: {
+                      value: 5,
+                      message: "Maximum value is 5",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <input
+                      placeholder="Enter rating"
+                      {...field}
+                      type="number"
+                      defaultValue={product?.rating}
+                      style={{
+                        border: errors?.rating ? "1px solid red" : "",
+                      }}
+                    />
+                  )}
+                />
+                <span className="error-message">{errors?.rating?.message}</span>
+              </div>
+
+              <div>
+                <label htmlFor="description">Description:</label>
+                <Controller
+                  name="description"
+                  control={control}
+                  rules={{
+                    required: "description is required",
+                    minLength: {
+                      value: 5,
+                      message: "Minimum value is 5",
+                    },
+                    maxLength: {
+                      value: 200,
+                      message: "Maximum value is 200",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <textarea
+                      placeholder="Enter description"
+                      {...field}
+                      type="text"
+                      defaultValue={product?.description}
+                      style={{
+                        border: errors?.description ? "1px solid red" : "",
+                      }}
+                    />
+                  )}
+                />
+                <span className="error-message">
+                  {errors?.description?.message}
+                </span>
+              </div>
+
               <input type="submit" value="Update" />
             </div>
           </form>

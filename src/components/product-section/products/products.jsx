@@ -7,9 +7,11 @@ import useCartHook from "../../../hooks/useCartHook";
 import Spinner from "../../spinner/spinner";
 
 const Products = () => {
-  const { products, isLoadingProduct, getAllProducts } = useProductHook();
+  const { products, isLoadingProduct, getAllProducts, getSearchedProduct } =
+    useProductHook();
   const { cart, isLoadingCart, getAllProductsFromCart } = useCartHook();
   const [loadCart, setLoadCart] = useState(true);
+  const [search, setSearch] = useState("");
 
   const reloadCart = () => {
     console.log("reload cart called");
@@ -24,13 +26,35 @@ const Products = () => {
     getAllProductsFromCart();
   }, [loadCart]);
 
-  console.log(products);
+  useEffect(() => {
+    const timeOutFunc = setTimeout(() => {
+      getSearchedProduct(search);
+    }, 3000);
+
+    return () => clearTimeout(timeOutFunc);
+  }, [search]);
 
   return (
     <div className="product-container">
       <div className="product-title">
         <h2 style={{ textAlign: "center" }}> All Products</h2>
       </div>
+      <div className="search-container">
+        <form
+        // onSubmit={handleSearch}
+        >
+          <input
+            type="text"
+            placeholder="Search.."
+            name="search"
+            onKeyUp={(e) => setSearch(e?.target?.value)}
+          />
+          <button type="submit">
+            <i className="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+
       <div className="product-section">
         {isLoadingProduct ? (
           <Spinner />
@@ -39,7 +63,7 @@ const Products = () => {
             {products?.map((x) => (
               <ProductDetailsCard
                 props={x}
-                key={x?.id}
+                key={x?._id}
                 reloadCart={reloadCart}
               />
             ))}

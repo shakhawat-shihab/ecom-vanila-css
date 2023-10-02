@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axiosInstance from "../utils/axiosCreate";
 
 const useProductHook = () => {
   const [products, setProducts] = useState([]);
@@ -17,10 +18,11 @@ const useProductHook = () => {
 
   const getAllProducts = () => {
     setIsLoadingProduct(true);
-    fetch(`http://localhost:8000/products/all`)
-      .then((res) => res.json())
+    axiosInstance
+      .get(`/all`)
+      .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setProducts(data?.data?.products);
         setIsLoadingProduct(false);
         // if (data?.success) {
@@ -29,6 +31,35 @@ const useProductHook = () => {
         //   alert(data?.message);
         // }
       })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
+      })
+      .finally(() => {
+        setIsLoadingProduct(false);
+      });
+  };
+
+  const getSearchedProduct = (search) => {
+    console.log("search called ", search);
+    setIsLoadingProduct(true);
+    axiosInstance
+      .get(`/all?search=${search}`)
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setProducts(data?.data?.products);
+        setIsLoadingProduct(false);
+        // if (data?.success) {
+        //   alert(data?.message);
+        // } else {
+        //   alert(data?.message);
+        // }
+      })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
+      })
       .finally(() => {
         setIsLoadingProduct(false);
       });
@@ -36,8 +67,9 @@ const useProductHook = () => {
 
   const getSmartPhone = () => {
     setIsLoadingProduct(true);
-    fetch(`http://localhost:8000/products/all?search=phone`)
-      .then((res) => res.json())
+    axiosInstance
+      .get(`http://localhost:8000/products/all?category=phone`)
+      .then((res) => res.data)
       .then((data) => {
         // console.log(data);
         setPhone(data?.data?.products);
@@ -48,6 +80,10 @@ const useProductHook = () => {
         //   alert(data?.message);
         // }
       })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
+      })
       .finally(() => {
         setIsLoadingProduct(false);
       });
@@ -56,8 +92,9 @@ const useProductHook = () => {
   const getProductById = (id) => {
     setIsLoadingProduct(true);
     // console.log("begin");
-    fetch(`http://localhost:8000/products/find-by-id/${id}`)
-      .then((res) => res.json())
+    axiosInstance
+      .get(`find-by-id/${id}`)
+      .then((res) => res.data)
       .then((data) => {
         // console.log("shihab");
         setIsLoadingProduct(false);
@@ -67,6 +104,10 @@ const useProductHook = () => {
         if (data?.data) setProduct(data?.data);
         else setProduct({});
       })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
+      })
       .finally(() => {
         setIsLoadingProduct(false);
       });
@@ -75,17 +116,22 @@ const useProductHook = () => {
 
   const deleteProduct = (id) => {
     setIsLoadingProduct(true);
-    fetch(`http://localhost:8000/products/delete/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
+    axiosInstance
+      .delete(`/delete/${id}`)
+      .then((res) => res.data)
       .then((data) => {
+        console.log("inside ");
         setIsLoadingProduct(false);
+        console.log(data);
         if (data?.success) {
           alert(data?.message);
         } else {
           alert(data?.message);
         }
+      })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
       })
       .finally(() => {
         setIsLoadingProduct(false);
@@ -94,14 +140,9 @@ const useProductHook = () => {
 
   const insertProduct = (product) => {
     setIsLoadingProduct(true);
-    fetch(`http://localhost:8000/products/insert`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    })
-      .then((res) => res.json())
+    axiosInstance
+      .post(`http://localhost:8000/products/insert`, product)
+      .then((res) => res.data)
       .then((data) => {
         setIsLoadingProduct(false);
         if (data?.success) {
@@ -110,22 +151,22 @@ const useProductHook = () => {
           alert(data?.message);
         }
       })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
+      })
       .finally(() => {
         setIsLoadingProduct(false);
       });
   };
 
   const updateProduct = (product) => {
+    console.log(product);
     setIsLoadingProduct(true);
     const { id, ...other } = product;
-    fetch(`http://localhost:8000/products/update/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(other),
-    })
-      .then((res) => res.json())
+    axiosInstance
+      .patch(`http://localhost:8000/products/update/${id}`, other)
+      .then((res) => res.data)
       .then((data) => {
         setIsLoadingProduct(false);
         if (data?.success) {
@@ -133,6 +174,10 @@ const useProductHook = () => {
         } else {
           alert(data?.message);
         }
+      })
+      .catch((e) => {
+        console.log("Error: ", e?.response?.statusText);
+        alert(e?.response?.statusText);
       })
       .finally(() => {
         setIsLoadingProduct(false);
@@ -146,6 +191,7 @@ const useProductHook = () => {
     setProduct,
     isLoadingProduct,
     getAllProducts,
+    getSearchedProduct,
     getSmartPhone,
     insertProduct,
     deleteProduct,

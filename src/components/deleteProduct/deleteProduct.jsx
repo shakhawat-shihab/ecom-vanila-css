@@ -1,29 +1,57 @@
 import React, { useState } from "react";
 import useProductHook from "../../hooks/useProductHook";
+import { Controller, useForm } from "react-hook-form";
 
 const DeleteProduct = () => {
-  const { deleteProduct } = useProductHook();
   const [productId, setProductId] = useState("");
-  const handleDeleteProduct = (e) => {
-    e.preventDefault();
-    if (productId) deleteProduct(productId);
+  const { deleteProduct } = useProductHook();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      id: "",
+    },
+  });
+
+  const handleDeleteProduct = (data) => {
+    if (getValues("id")) deleteProduct(getValues("id"));
     else alert("Product Id is not provided");
   };
+
   return (
     <div className="insert-product-form">
-      <form onSubmit={handleDeleteProduct}>
+      <form onSubmit={handleSubmit(handleDeleteProduct)}>
         <h2>Delete Product</h2>
         <div>
-          <label htmlFor="title">Product Id:</label>
-          <input
-            type="text"
-            id="id"
+          <label htmlFor="id">Product Id:</label>
+          <Controller
             name="id"
-            required
-            onKeyUp={(e) => setProductId(e.target.value)}
+            control={control}
+            rules={{
+              required: "Product ID is required",
+              pattern: {
+                value: /^[a-f\d]{24}$/i,
+                message: "Invalid Id provided",
+              },
+            }}
+            render={({ field }) => (
+              <input
+                placeholder="Enter Product Id"
+                {...field}
+                type="text"
+                style={{
+                  border: errors?.price ? "1px solid red" : "",
+                }}
+              />
+            )}
           />
-          <input type="submit" value="Submit" />
+          <span className="error-message">{errors?.id?.message}</span>
         </div>
+        <input type="submit" value="Delete" />
       </form>
     </div>
   );
