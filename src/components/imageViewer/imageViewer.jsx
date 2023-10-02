@@ -34,8 +34,8 @@ const ImageViewer = ({ images, thumbnail }) => {
     }
   }, [images]);
 
-  console.log(images?.length);
-  console.log(loadingStates);
+  // console.log(images?.length);
+  // console.log(loadingStates);
 
   return (
     <div className="image-viewer">
