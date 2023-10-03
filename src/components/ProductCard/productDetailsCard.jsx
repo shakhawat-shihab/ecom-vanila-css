@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import ProductModal from "../productModal/productModal";
 import "./productDetailsCard.scss";
 import Rating from "react-rating";
+import { useNavigate } from "react-router-dom";
 // import myDb from "../../localStorgae/db";
 
 const ProductDetailsCard = ({ props, reloadCart }) => {
+  const navigate = useNavigate();
   const {
     title,
     thumbnail,
@@ -15,6 +17,7 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
     brand,
     category,
     id,
+    _id,
   } = props;
   // console.log(reloadCart);
 
@@ -78,9 +81,10 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
             className="order-button"
             onClick={(e) => {
               e.stopPropagation();
+              navigate(`/product-details/${_id}`);
             }}
           >
-            OrderNow
+            View Details
           </button>
         </div>
       </div>

@@ -69,41 +69,6 @@ const Products = () => {
             ))}
           </div>
         )}
-        {/* <div className=" cart-container ">
-          <h2 style={{ textAlign: "center", color: "#F0932B" }}>
-            Cart
-          </h2>
-          {isLoadingCart ? (
-            <Spinner />
-          ) : (
-            <div className="">
-              {cart?.length ? (
-                <div className="cart-card-container ">
-                  {cart?.map((x) => (
-                    <ProductCartCard
-                      props={x}
-                      key={x?.id}
-                      reloadCart={reloadCart}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div>
-                  <h2
-                    style={{
-                      marginTop: "140px",
-                      color: "gray",
-                      textAlign: "center",
-                    }}
-                  >
-                    {" "}
-                    Your Cart is Empty
-                  </h2>
-                </div>
-              )}
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   );

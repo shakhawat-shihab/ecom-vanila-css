@@ -12,8 +12,16 @@ import Subscribe from "./components/subscribe/subscribe";
 import InsertProduct from "./components/insertProduct/insertProduct";
 import DeleteProduct from "./components/deleteProduct/deleteProduct";
 import UpdateProduct from "./components/updateProduct/updateProduct";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home";
+import NotFound from "./components/notFound/notFound";
+import ProductDetails from "./components/productDetails/productDetails";
+import Login from "./components/login/login";
+import Register from "./components/login/register/register";
+import About from "./components/about/about";
+import Contact from "./components/contact/contact";
 
-export const MyContext = createContext();
+// export const MyContext = createContext();
 
 function App() {
   const [user, setUser] = useState({});
@@ -28,21 +36,29 @@ function App() {
 
   return (
     <>
-      <MyContext.Provider value={{ user, logInUser, logOutUser }}>
-        <Navbar />
-      </MyContext.Provider>
+      {/* <MyContext.Provider value={{ user, logInUser, logOutUser }}> */}
 
-      <Banner />
-      <SmartPhone />
-      <Products />
-      <InsertProduct />
-      <hr />
-      <UpdateProduct />
-      <hr />
-      <DeleteProduct />
-      <hr />
-      <Subscribe />
-      <Footer />
+      {/* </MyContext.Provider> */}
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/products" element={<Products />} />
+          <Route
+            path="/product-details/:productId"
+            element={<ProductDetails />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <hr />
+
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }
