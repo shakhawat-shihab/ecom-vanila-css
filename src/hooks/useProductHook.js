@@ -33,7 +33,7 @@ const useProductHook = () => {
       })
       .catch((e) => {
         console.log("Error: ", e?.response?.statusText);
-        alert(e?.response?.statusText);
+        // alert(e?.response?.statusText);
       })
       .finally(() => {
         setIsLoadingProduct(false);
@@ -58,7 +58,7 @@ const useProductHook = () => {
       })
       .catch((e) => {
         console.log("Error: ", e?.response?.statusText);
-        alert(e?.response?.statusText);
+        // alert(e?.response?.statusText);
       })
       .finally(() => {
         setIsLoadingProduct(false);
@@ -82,7 +82,7 @@ const useProductHook = () => {
       })
       .catch((e) => {
         console.log("Error: ", e?.response?.statusText);
-        alert(e?.response?.statusText);
+        // alert(e?.response?.statusText);
       })
       .finally(() => {
         setIsLoadingProduct(false);
@@ -96,16 +96,18 @@ const useProductHook = () => {
       .get(`find-by-id/${id}`)
       .then((res) => res.data)
       .then((data) => {
-        // console.log("shihab");
+        // console.log("shihab ", data);
         setIsLoadingProduct(false);
-        if (data?.success == false) {
-          alert(data?.message);
-        }
+        // if (data?.success == false) {
+        //   setProduct({});
+        //   alert(data?.message);
+        // }
         if (data?.data) setProduct(data?.data);
         else setProduct({});
       })
       .catch((e) => {
         console.log("Error: ", e?.response?.statusText);
+        setProduct({});
         alert(e?.response?.statusText);
       })
       .finally(() => {

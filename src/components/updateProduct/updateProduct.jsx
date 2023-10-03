@@ -6,11 +6,6 @@ import { Controller, useForm } from "react-hook-form";
 const UpdateProduct = () => {
   const [productId, setProductId] = useState("");
   const [id, setId] = useState("");
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
-  const [rating, setRating] = useState("");
-  const [description, setDescription] = useState("");
   const [foundProduct, setFoundProduct] = useState(0);
 
   const {
@@ -18,10 +13,15 @@ const UpdateProduct = () => {
     control,
     formState: { errors },
     getValues,
+    setValue,
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      id: "",
+      title: "",
+      price: 1,
+      stock: 1,
+      rating: 0,
+      description: "",
     },
   });
 
@@ -43,15 +43,15 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     setId(product?._id);
-    setTitle(product?.title);
-    setPrice(product?.price);
-    setStock(product?.stock);
-    setRating(product?.rating);
-    setDescription(product?.description);
+    setValue("title", product?.title);
+    setValue("price", product?.price);
+    setValue("stock", product?.stock);
+    setValue("rating", product?.rating);
+    setValue("description", product?.description);
+    // console.log(product);
   }, [product]);
 
   //   console.log(product);
-
   // const handleUpdateProduct = (e) => {
   //   console.log("Update Clicked");
   //   e.preventDefault();
@@ -120,7 +120,7 @@ const UpdateProduct = () => {
                       placeholder="Enter title"
                       {...field}
                       type="text"
-                      defaultValue={product?.title}
+                      // defaultValue={product?.title}
                       style={{
                         border: errors?.title ? "1px solid red" : "",
                       }}
@@ -205,6 +205,7 @@ const UpdateProduct = () => {
                       placeholder="Enter rating"
                       {...field}
                       type="number"
+                      step="0.01"
                       defaultValue={product?.rating}
                       style={{
                         border: errors?.rating ? "1px solid red" : "",
