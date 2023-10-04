@@ -50,7 +50,7 @@ const ProductCartCard = ({ props, reloadCart }) => {
 
         <div className="button-container">
           <button
-            className="order-button"
+            className="red-btn"
             onClick={(e) => {
               // alert("add to cart button clicked");
               removeProductFromLocalStorage(id);

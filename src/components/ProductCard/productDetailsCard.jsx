@@ -77,10 +77,10 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
         </div>
 
         <div className="button-container">
-          <Button customClass="cart-button" clickFunctionality={addToCart}>
+          <Button customClass="blue-btn" clickFunctionality={addToCart}>
             Add to cart
           </Button>
-          <Button customClass="order-button" clickFunctionality={viewDetails}>
+          <Button customClass="red-btn" clickFunctionality={viewDetails}>
             View Details
           </Button>
         </div>
