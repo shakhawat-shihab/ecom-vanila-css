@@ -3,6 +3,7 @@ import ProductModal from "../productModal/productModal";
 import "./productDetailsCard.scss";
 import Rating from "react-rating";
 import { useNavigate } from "react-router-dom";
+import Button from "../button/button";
 // import myDb from "../../localStorgae/db";
 
 const ProductDetailsCard = ({ props, reloadCart }) => {
@@ -38,6 +39,16 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
     }
   };
 
+  const addToCart = (e) => {
+    addProductToLocalStorage(id, 1);
+    reloadCart();
+    e.stopPropagation();
+  };
+  const viewDetails = (e) => {
+    e.stopPropagation();
+    navigate(`/product-details/${_id}`);
+  };
+
   return (
     <div className="product-card">
       <img src={thumbnail} alt="product image" width="100%" height="300px" />
@@ -66,26 +77,12 @@ const ProductDetailsCard = ({ props, reloadCart }) => {
         </div>
 
         <div className="button-container">
-          <button
-            className="cart-button"
-            onClick={(e) => {
-              // alert("add to cart button clicked");
-              addProductToLocalStorage(id, 1);
-              reloadCart();
-              e.stopPropagation();
-            }}
-          >
+          <Button customClass="cart-button" clickFunctionality={addToCart}>
             Add to cart
-          </button>
-          <button
-            className="order-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/product-details/${_id}`);
-            }}
-          >
+          </Button>
+          <Button customClass="order-button" clickFunctionality={viewDetails}>
             View Details
-          </button>
+          </Button>
         </div>
       </div>
     </div>
