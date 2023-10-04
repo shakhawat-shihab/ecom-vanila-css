@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./register.style.scss";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import PasswordInput from "../../passwordInput/passwordInput";
+import PasswordInput from "../../../components/passwordInput/passwordInput";
 
 const Register = () => {
   const ref = useRef(null);

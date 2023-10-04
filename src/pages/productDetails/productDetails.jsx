@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useProductHook from "../../hooks/useProductHook";
-import ImageViewer from "../imageViewer/imageViewer";
+import ImageViewer from "../../components/imageViewer/imageViewer";
 
 const ProductDetails = () => {
   const { productId } = useParams();

@@ -2,7 +2,7 @@ import React from "react";
 import "./login.style.scss";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import PasswordInput from "../passwordInput/passwordInput";
+import PasswordInput from "../../components/passwordInput/passwordInput";
 
 const Login = () => {
   const {
