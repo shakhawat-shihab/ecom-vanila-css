@@ -7,7 +7,7 @@ const Navbar = () => {
   // const { user, logInUser, logOutUser } = useContext(MyContext);
   // console.log("user ", user);
   const navigate = useNavigate();
-  const user = {};
+  const token = localStorage.getItem("token");
 
   const logInFunction = () => {
     navigate("/login");
@@ -40,21 +40,39 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="/contact"
+              to="/add-product"
               className={({ isActive, isPending }) => isActive && "active"}
             >
-              Contact
+              Insert
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/about"
+              to="/update-product"
               className={({ isActive, isPending }) => isActive && "active"}
             >
-              About
+              Update
             </NavLink>
           </li>
-          {user?.email ? (
+          <li>
+            <NavLink
+              to="/delete-product"
+              className={({ isActive, isPending }) => isActive && "active"}
+            >
+              Delete
+            </NavLink>
+          </li>
+          {token && (
+            <li>
+              <NavLink
+                to="/profile"
+                className={({ isActive, isPending }) => isActive && "active"}
+              >
+                Profile
+              </NavLink>
+            </li>
+          )}
+          {token ? (
             <li>
               <button
                 className="logout-btn"

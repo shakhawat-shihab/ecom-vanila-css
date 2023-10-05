@@ -272,7 +272,7 @@ const Register = () => {
         </div>
 
         <div>
-          <input type="submit" value="Login" />
+          <input type="submit" value="Register" />
         </div>
       </form>
     </div>

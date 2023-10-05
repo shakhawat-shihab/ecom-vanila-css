@@ -1,0 +1,16 @@
+.profile-view-container{
+    margin-top: 80px;
+    height: 90vh;
+}
+
+.profile-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70vh;
+    .profile-view{
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -13,6 +13,13 @@ import About from "./pages/about/about";
 import Contact from "./pages/contact/contact";
 import Register from "./pages/login/register/register";
 import ProductDetails from "./pages/productDetails/productDetails";
+import Authenticate from "./pages/authenticate/authenticate";
+import InsertProduct from "./components/insertProduct/insertProduct";
+import UpdateProduct from "./components/updateProduct/updateProduct";
+import DeleteProduct from "./components/deleteProduct/deleteProduct";
+import EditProfile from "./pages/editProfile/editProfile";
+import Profile from "./pages/profile/profile";
+import DeleteProfile from "./pages/deleteProfile/deleteProfile";
 
 // export const MyContext = createContext();
 
@@ -39,13 +46,26 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
+
           <Route
             path="/product-details/:productId"
             element={<ProductDetails />}
           />
+
+          <Route path="/profile" element={<Profile />}>
+            <Route path="edit" element={<EditProfile />} />
+            <Route path="delete" element={<DeleteProfile />} />
+          </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
+
+          <Route element={<Authenticate />}>
+            <Route path="/add-product" element={<InsertProduct />} />
+            <Route path="/update-product" element={<UpdateProduct />} />
+            <Route path="/delete-product" element={<DeleteProduct />} />
+          </Route>
         </Routes>
         <hr />
 
