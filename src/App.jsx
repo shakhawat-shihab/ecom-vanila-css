@@ -46,12 +46,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
-
           <Route
             path="/product-details/:productId"
             element={<ProductDetails />}
           />
 
+          {/* useOutletContext */}
           <Route path="/profile" element={<Profile />}>
             <Route path="edit" element={<EditProfile />} />
             <Route path="delete" element={<DeleteProfile />} />
@@ -61,6 +61,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
 
+          {/* private route */}
           <Route element={<Authenticate />}>
             <Route path="/add-product" element={<InsertProduct />} />
             <Route path="/update-product" element={<UpdateProduct />} />

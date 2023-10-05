@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosCreate";
+import { useDispatch } from "react-redux";
+import {
+  addProductAction,
+  deleteProductAction,
+  loadProductAction,
+} from "../redux/actions/productActions";
 
 const useProductHook = () => {
   const [products, setProducts] = useState([]);
   const [phone, setPhone] = useState([]);
   const [product, setProduct] = useState({});
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
+
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   fetch(`http://localhost:8000/products/all?sortAsc=price&sortParam=price`)
@@ -24,7 +32,9 @@ const useProductHook = () => {
       .then((data) => {
         // console.log(data);
         setProducts(data?.data?.products);
+        dispatch(loadProductAction(data?.data?.products));
         setIsLoadingProduct(false);
+
         // if (data?.success) {
         //   alert(data?.message);
         // } else {
@@ -127,6 +137,7 @@ const useProductHook = () => {
         console.log(data);
         if (data?.success) {
           alert(data?.message);
+          dispatch(deleteProductAction(id));
         } else {
           alert(data?.message);
         }
@@ -141,6 +152,7 @@ const useProductHook = () => {
   };
 
   const insertProduct = (product) => {
+    console.log("product ", product);
     setIsLoadingProduct(true);
     axiosInstance
       .post(`http://localhost:8000/products/insert`, product)
@@ -148,6 +160,7 @@ const useProductHook = () => {
       .then((data) => {
         setIsLoadingProduct(false);
         if (data?.success) {
+          dispatch(addProductAction(data?.data));
           alert(data?.message);
         } else {
           alert(data?.message);

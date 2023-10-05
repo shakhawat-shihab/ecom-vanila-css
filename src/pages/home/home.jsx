@@ -13,11 +13,11 @@ const Home = () => {
       <Banner />
       <SmartPhone />
       <Products />
-      <InsertProduct />
+      {/* <InsertProduct />
       <hr />
       <UpdateProduct />
       <hr />
-      <DeleteProduct />
+      <DeleteProduct /> */}
       <hr />
       <Subscribe />
     </div>

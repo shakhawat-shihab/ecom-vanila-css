@@ -5,21 +5,27 @@ import ProductCartCard from "../../ProductCard/productCartCard";
 import useProductHook from "../../../hooks/useProductHook";
 import useCartHook from "../../../hooks/useCartHook";
 import Spinner from "../../spinner/spinner";
+import { useSelector } from "react-redux";
 
 const Products = () => {
-  const { products, isLoadingProduct, getAllProducts, getSearchedProduct } =
+  const { isLoadingProduct, getAllProducts, getSearchedProduct } =
     useProductHook();
   const { cart, isLoadingCart, getAllProductsFromCart } = useCartHook();
   const [loadCart, setLoadCart] = useState(true);
   const [search, setSearch] = useState("");
+
+  const [products, setProducts] = useState([]);
 
   const reloadCart = () => {
     console.log("reload cart called");
     setLoadCart(!loadCart);
   };
 
+  const productArray = useSelector((state) => state.products.productsList);
+  console.log("product array by redux ", productArray);
+
   useEffect(() => {
-    getAllProducts();
+    if (productArray.length == 0) getAllProducts();
   }, []);
 
   useEffect(() => {
@@ -30,9 +36,14 @@ const Products = () => {
     const timeOutFunc = setTimeout(() => {
       getSearchedProduct(search);
     }, 3000);
-
     return () => clearTimeout(timeOutFunc);
   }, [search]);
+
+  useEffect(() => {
+    setProducts(productArray);
+  }, [productArray]);
+
+  console.log("products ", products);
 
   return (
     <div className="product-container">
