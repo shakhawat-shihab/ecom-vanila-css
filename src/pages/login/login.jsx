@@ -3,6 +3,7 @@ import "./login.style.scss";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import PasswordInput from "../../components/passwordInput/passwordInput";
+import useAuthHook from "../../hooks/useAuthHook";
 
 const Login = () => {
   const {
@@ -17,9 +18,11 @@ const Login = () => {
       password: "",
     },
   });
+  const { getLogIn, isLoadingAuth } = useAuthHook();
 
   const handleLogin = (data) => {
     console.log(data);
+    getLogIn({ email: getValues("email"), password: getValues("password") });
   };
   return (
     <div className="login-container">

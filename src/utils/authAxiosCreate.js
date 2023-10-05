@@ -1,11 +1,9 @@
 import axios from "axios";
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/products",
+const axiosInstanceAuth = axios.create({
+  baseURL: "http://localhost:8000/auth",
   timeout: 500,
 });
-
-axiosInstance.interceptors.request.use((config) => {
+axiosInstanceAuth.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -14,4 +12,4 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export default axiosInstance;
+export default axiosInstanceAuth;

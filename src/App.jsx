@@ -30,7 +30,6 @@ function App() {
   return (
     <>
       {/* <MyContext.Provider value={{ user, logInUser, logOutUser }}> */}
-
       {/* </MyContext.Provider> */}
       <BrowserRouter>
         <Navbar />
