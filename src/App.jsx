@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -20,11 +20,16 @@ import DeleteProduct from "./components/deleteProduct/deleteProduct";
 import EditProfile from "./pages/editProfile/editProfile";
 import Profile from "./pages/profile/profile";
 import DeleteProfile from "./pages/deleteProfile/deleteProfile";
-
+import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { loadProductReducer } from "./store/slices/productSlice";
+import { deleteUserInfo, loadUserInfo } from "./store/slices/userSlice";
 // export const MyContext = createContext();
 
 function App() {
   const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+
   const logInUser = () => {
     console.log("login clicked");
     setUser({ email: "shihabchtg@gmail.com", name: "shakhawat" });
@@ -33,6 +38,17 @@ function App() {
     console.log("logout clicked");
     setUser({});
   };
+
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      let decoded = jwt_decode(token);
+      dispatch(loadUserInfo(decoded));
+      console.log(decoded);
+    } else {
+      dispatch(deleteUserInfo({}));
+    }
+  }, []);
 
   return (
     <>
@@ -52,10 +68,10 @@ function App() {
             element={<ProductDetails />}
           />
 
-          <Route path="/profile" element={<Profile />}>
+          {/* <Route path="/profile" element={<Profile />}>
             <Route path="edit" element={<EditProfile />} />
             <Route path="delete" element={<DeleteProfile />} />
-          </Route>
+          </Route> */}
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -65,6 +81,10 @@ function App() {
             <Route path="/add-product" element={<InsertProduct />} />
             <Route path="/update-product" element={<UpdateProduct />} />
             <Route path="/delete-product" element={<DeleteProduct />} />
+            <Route path="/profile" element={<Profile />}>
+              <Route path="edit" element={<EditProfile />} />
+              <Route path="delete" element={<DeleteProfile />} />
+            </Route>
           </Route>
         </Routes>
         <hr />

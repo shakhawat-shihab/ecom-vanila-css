@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosCreate";
+import { useDispatch } from "react-redux";
+import {
+  addProductReducer,
+  deleteProductReducer,
+  loadProductReducer,
+  updateProductReducer,
+} from "../store/slices/productSlice";
 
 const useProductHook = () => {
   const [products, setProducts] = useState([]);
   const [phone, setPhone] = useState([]);
   const [product, setProduct] = useState({});
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
+
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   fetch(`http://localhost:8000/products/all?sortAsc=price&sortParam=price`)
@@ -25,6 +34,7 @@ const useProductHook = () => {
         // console.log(data);
         setProducts(data?.data?.products);
         setIsLoadingProduct(false);
+        dispatch(loadProductReducer(data?.data?.products));
         // if (data?.success) {
         //   alert(data?.message);
         // } else {
@@ -126,12 +136,14 @@ const useProductHook = () => {
         setIsLoadingProduct(false);
         console.log(data);
         if (data?.success) {
+          dispatch(deleteProductReducer(id));
           alert(data?.message);
         } else {
           alert(data?.message);
         }
       })
       .catch((e) => {
+        console.log(e);
         console.log("Error: ", e?.response?.statusText);
         alert(e?.response?.statusText);
       })
@@ -148,12 +160,14 @@ const useProductHook = () => {
       .then((data) => {
         setIsLoadingProduct(false);
         if (data?.success) {
+          dispatch(addProductReducer(data?.data));
           alert(data?.message);
         } else {
           alert(data?.message);
         }
       })
       .catch((e) => {
+        console.log(e);
         console.log("Error: ", e?.response?.statusText);
         alert(e?.response?.statusText);
       })
@@ -172,6 +186,7 @@ const useProductHook = () => {
       .then((data) => {
         setIsLoadingProduct(false);
         if (data?.success) {
+          dispatch(updateProductReducer(product));
           alert(data?.message);
         } else {
           alert(data?.message);

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import axiosInstanceAuth from "../utils/authAxiosCreate";
+import { useDispatch } from "react-redux";
+import { addUserInfo } from "../store/slices/userSlice";
+import { useNavigate } from "react-router";
 
 const useAuthHook = () => {
   const [isLoadingAuth, setIsLoadingAuth] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getLogIn = (data) => {
     setIsLoadingAuth(true);
@@ -13,8 +18,10 @@ const useAuthHook = () => {
         setIsLoadingAuth(false);
         console.log(data?.data?.token);
         if (data?.success) {
+          // localStorage.setItem("token", data?.data?.token);
+          dispatch(addUserInfo(data?.data));
           alert(data?.message);
-          localStorage.setItem("token", data?.data?.token);
+          navigate("/");
         } else {
           alert(data?.message);
         }

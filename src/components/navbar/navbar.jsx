@@ -2,15 +2,23 @@ import React, { useContext } from "react";
 import "./navbar.style.css";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import Button from "../button/button";
+import { useDispatch } from "react-redux";
+import { deleteUserInfo } from "../../store/slices/userSlice";
 
 const Navbar = () => {
   // const { user, logInUser, logOutUser } = useContext(MyContext);
   // console.log("user ", user);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
 
   const logInFunction = () => {
     navigate("/login");
+  };
+
+  const logOutUser = () => {
+    dispatch(deleteUserInfo());
+    navigate("/");
   };
   return (
     <nav>

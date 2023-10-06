@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.style.scss";
 import Button from "../../components/button/button";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({
-    userName: "shakhawat",
-    email: "shihabchtg@gmail.com",
-    phone: "01843534523",
-  });
+  // const [user, setUser] = useState({
+  //   userName: "shakhawat",
+  //   email: "shihabchtg@gmail.com",
+  //   phone: "01843534523",
+  // });
+  const [user, setUser] = useState({});
+  const userInfo = useSelector((state) => state.user);
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, [userInfo]);
 
   const redirectToProfileEdit = () => {
     navigate("/profile/edit");
